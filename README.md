@@ -50,48 +50,48 @@ In this example `vmsfile` is the file holding the vms data and `VIIRS2018` is th
 `vmsfilenoherbs <- subset(vmsfile_noharbour, SPEED < 1)`
 
 
-`vmsfile_viirs <- subset(vmsfilenoherbs, NAMA_ALAT_ == "Purse Seine (Pukat Cincin) Pelagis Kecil" | NAMA_ALAT_ == "Bouke ami" | NAMA_ALAT_ == "Pukat cincin Pelagis Besar dengan satu kapal")
-vmsfile_Purse_Seine_large <- subset(vmsfilenoherbs, NAMA_ALAT_ == "Pukat cincin Pelagis Besar dengan satu kapal")
-vmsfile_Purse_Seine_small <- subset(vmsfilenoherbs, NAMA_ALAT_ == "Purse Seine (Pukat Cincin) Pelagis Kecil")
-vmsfile_Bouke_ami <- subset(vmsfilenoherbs, NAMA_ALAT_ == "Bouke ami")`
+`vmsfile_viirs <- subset(vmsfilenoherbs, NAMA_ALAT_ == "Purse Seine (Pukat Cincin) Pelagis Kecil" | NAMA_ALAT_ == "Bouke ami" | NAMA_ALAT_ == "Pukat cincin Pelagis Besar dengan satu kapal")`
+`vmsfile_Purse_Seine_large <- subset(vmsfilenoherbs, NAMA_ALAT_ == "Pukat cincin Pelagis Besar dengan satu kapal")`
+`vmsfile_Purse_Seine_small <- subset(vmsfilenoherbs, NAMA_ALAT_ == "Purse Seine (Pukat Cincin) Pelagis Kecil")`
+`vmsfile_Bouke_ami <- subset(vmsfilenoherbs, NAMA_ALAT_ == "Bouke ami")`
 
-`vmstoviirs_noharbour <- vms2viirs(VIIRS2018,vmsfile_noharbour)
-vmstoviirs_viirs <- vms2viirs(VIIRS2018,vmsfile_viirs)
-vmstoviirs_Purse_Seine_large <- vms2viirs(VIIRS2018,vmsfile_Purse_Seine_large)
-vmstoviirs_Purse_Seine_small <- vms2viirs(VIIRS2018,vmsfile_Purse_Seine_small)
-vmstoviirs_Bouke_ami <- vms2viirs(VIIRS2018,vmsfile_Bouke_ami)`
+`vmstoviirs_noharbour <- vms2viirs(VIIRS2018,vmsfile_noharbour)`
+`vmstoviirs_viirs <- vms2viirs(VIIRS2018,vmsfile_viirs)`
+`vmstoviirs_Purse_Seine_large <- vms2viirs(VIIRS2018,vmsfile_Purse_Seine_large)`
+`vmstoviirs_Purse_Seine_small <- vms2viirs(VIIRS2018,vmsfile_Purse_Seine_small)`
+`vmstoviirs_Bouke_ami <- vms2viirs(VIIRS2018,vmsfile_Bouke_ami)`
 
-`vms2viirs2shpfile_noharbour <- vms2viirs2shp2(vmstoviirs_noharbour,ROI,"noharbour")
-vms2viirs2shpfile_viirs <- vms2viirs2shp2(vmstoviirs_viirs,ROI,"noharbour")
-vms2viirs2shpfile_Purse_Seine_large <- vms2viirs2shp2(vmstoviirs_Purse_Seine_large,ROI,"noharbour")
-vms2viirs2shpfile_Purse_Seine_small <- vms2viirs2shp2(vmstoviirs_Purse_Seine_small,ROI,"noharbour")
-vms2viirs2shpfile_Bouke_ami <- vms2viirs2shp2(vmstoviirs_Bouke_ami,ROI,"noharbour")`
+`vms2viirs2shpfile_noharbour <- vms2viirs2shp2(vmstoviirs_noharbour,ROI,"noharbour")`
+`vms2viirs2shpfile_viirs <- vms2viirs2shp2(vmstoviirs_viirs,ROI,"noharbour")`
+`vms2viirs2shpfile_Purse_Seine_large <- vms2viirs2shp2(vmstoviirs_Purse_Seine_large,ROI,"noharbour")`
+`vms2viirs2shpfile_Purse_Seine_small <- vms2viirs2shp2(vmstoviirs_Purse_Seine_small,ROI,"noharbour")`
+`vms2viirs2shpfile_Bouke_ami <- vms2viirs2shp2(vmstoviirs_Bouke_ami,ROI,"noharbour")`
 
 For this tutorial a buffer distance of 5000 meter was used in the vms2viirsanalysis function. Look for more info on the buffer distance to the journals in the Publications section.
 
-`vmsanalysisfile_noharbour <- vms2viirsanalysis(vms2viirs2shpfile_noharbour, VIIRS2018, vmsfile_noharbour)
-rgdal::writeOGR(vmsanalysisfile_noharbour, "." , "VIIRS2018_Identified_noharbour", driver = "ESRI Shapefile")
-vmsanalysisfile_viirs <- vms2viirsanalysis(vms2viirs2shpfile_viirs, VIIRS2018, vmsfile_viirs,5000)
-rgdal::writeOGR(vmsanalysisfile_viirs, "." , "VIIRS2018_Identified_viirs", driver = "ESRI Shapefile")
-vmsanalysisfile_Purse_Seine_large <- vms2viirsanalysis(vms2viirs2shpfile_Purse_Seine_large, VIIRS2018, vmsfile_Purse_Seine_large,5000)
-rgdal::writeOGR(vmsanalysisfile_Purse_Seine_large, "." , "VIIRS2018_Identified_Purse_Seine_Large", driver = "ESRI Shapefile")
-vmsanalysisfile_Purse_Seine_small <- vms2viirsanalysis(vms2viirs2shpfile_Purse_Seine_small, VIIRS2018, vmsfile_Purse_Seine_small,5000)
-rgdal::writeOGR(vmsanalysisfile_Purse_Seine_small, "." , "VIIRS2018_Identified_Purse_Seine_Small", driver = "ESRI Shapefile")
-vmsanalysisfile_Bouke_ami <- vms2viirsanalysis(vms2viirs2shpfile_Bouke_ami, VIIRS2018, vmsfile_Bouke_ami,5000)
-vmsanalysisfile_Bouke_ami$RegionOfInterest <- sp::over(vmsanalysisfile_Bouke_ami,RegionOfInterest)
-vmsanalysisfile_Bouke_ami$SZNKKP <- sp::over(vmsanalysisfile_Bouke_ami,SZNKKP)
-rgdal::writeOGR(vmsanalysisfile_Bouke_ami, "." , "VIIRS2018_Identified_Bouke_ami", driver = "ESRI Shapefile")`
+`vmsanalysisfile_noharbour <- vms2viirsanalysis(vms2viirs2shpfile_noharbour, VIIRS2018, vmsfile_noharbour)`
+`rgdal::writeOGR(vmsanalysisfile_noharbour, "." , "VIIRS2018_Identified_noharbour", driver = "ESRI Shapefile")`
+`vmsanalysisfile_viirs <- vms2viirsanalysis(vms2viirs2shpfile_viirs, VIIRS2018, vmsfile_viirs,5000)`
+`rgdal::writeOGR(vmsanalysisfile_viirs, "." , "VIIRS2018_Identified_viirs", driver = "ESRI Shapefile")`
+`vmsanalysisfile_Purse_Seine_large <- vms2viirsanalysis(vms2viirs2shpfile_Purse_Seine_large, VIIRS2018, vmsfile_Purse_Seine_large,5000)`
+`rgdal::writeOGR(vmsanalysisfile_Purse_Seine_large, "." , "VIIRS2018_Identified_Purse_Seine_Large", driver = "ESRI Shapefile")`
+`vmsanalysisfile_Purse_Seine_small <- vms2viirsanalysis(vms2viirs2shpfile_Purse_Seine_small, VIIRS2018, vmsfile_Purse_Seine_small,5000)`
+`rgdal::writeOGR(vmsanalysisfile_Purse_Seine_small, "." , "VIIRS2018_Identified_Purse_Seine_Small", driver = "ESRI Shapefile")`
+`vmsanalysisfile_Bouke_ami <- vms2viirsanalysis(vms2viirs2shpfile_Bouke_ami, VIIRS2018, vmsfile_Bouke_ami,5000)`
+`vmsanalysisfile_Bouke_ami$RegionOfInterest <- sp::over(vmsanalysisfile_Bouke_ami,RegionOfInterest)`
+`vmsanalysisfile_Bouke_ami$SZNKKP <- sp::over(vmsanalysisfile_Bouke_ami,SZNKKP)`
+`rgdal::writeOGR(vmsanalysisfile_Bouke_ami, "." , "VIIRS2018_Identified_Bouke_ami", driver = "ESRI Shapefile")`
 
 
-`vmstoviirsforpath_noharbour <- vms2viirs4path(vmsanalysisfile_noharbour,vmsfile_noharbour)
-rgdal::writeOGR(vmstoviirsforpath_noharbour, "." , "vms4path_noharbour", driver = "ESRI Shapefile")
-vmstoviirsforpath_viirs <- vms2viirs4path(vmsanalysisfile_viirs,vmsfile_viirs)
-rgdal::writeOGR(vmstoviirsforpath_viirs, "." , "vms4path_viirs", driver = "ESRI Shapefile")
-vmstoviirsforpath_Purse_Seine_large <- vms2viirs4path(vmsanalysisfile_Purse_Seine_large,vmsfile_Purse_Seine_large)
-rgdal::writeOGR(vmstoviirsforpath_Purse_Seine_large, "." , "vms4path_Purse_Seine_Large", driver = "ESRI Shapefile")
-vmstoviirsforpath_Purse_Seine_small <- vms2viirs4path(vmsanalysisfile_Purse_Seine_small,vmsfile_Purse_Seine_small)
-rgdal::writeOGR(vmstoviirsforpath_Purse_Seine_small, "." , "vms4path_Purse_Seine_Small", driver = "ESRI Shapefile")
-vmstoviirsforpath_Bouke_ami <- vms2viirs4path(vmsanalysisfile_Bouke_ami,vmsfile_Bouke_ami)
-rgdal::writeOGR(vmstoviirsforpath_Bouke_ami, "." , "Filtered/vms4path_Bouke_ami", driver = "ESRI Shapefile")`
+`vmstoviirsforpath_noharbour <- vms2viirs4path(vmsanalysisfile_noharbour,vmsfile_noharbour)`
+`rgdal::writeOGR(vmstoviirsforpath_noharbour, "." , "vms4path_noharbour", driver = "ESRI Shapefile")`
+`vmstoviirsforpath_viirs <- vms2viirs4path(vmsanalysisfile_viirs,vmsfile_viirs)`
+`rgdal::writeOGR(vmstoviirsforpath_viirs, "." , "vms4path_viirs", driver = "ESRI Shapefile")`
+`vmstoviirsforpath_Purse_Seine_large <- vms2viirs4path(vmsanalysisfile_Purse_Seine_large,vmsfile_Purse_Seine_large)`
+`rgdal::writeOGR(vmstoviirsforpath_Purse_Seine_large, "." , "vms4path_Purse_Seine_Large", driver = "ESRI Shapefile")`
+`vmstoviirsforpath_Purse_Seine_small <- vms2viirs4path(vmsanalysisfile_Purse_Seine_small,vmsfile_Purse_Seine_small)`
+`rgdal::writeOGR(vmstoviirsforpath_Purse_Seine_small, "." , "vms4path_Purse_Seine_Small", driver = "ESRI Shapefile")`
+`vmstoviirsforpath_Bouke_ami <- vms2viirs4path(vmsanalysisfile_Bouke_ami,vmsfile_Bouke_ami)`
+`rgdal::writeOGR(vmstoviirsforpath_Bouke_ami, "." , "Filtered/vms4path_Bouke_ami", driver = "ESRI Shapefile")`
 
 After these are all done, you can import the `vmstoviirsforpath` Shapefiles to a QGIS instance and run the `Points to Path` tool: select `Ping Time` as Order Column and select `sepprtr` as Group Expression.
