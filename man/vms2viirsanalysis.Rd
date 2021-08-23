@@ -4,12 +4,14 @@
 \alias{vms2viirsanalysis}
 \title{vms 2 viirs}
 \usage{
-vms2viirsanalysis(vmstoviirshp, viirsfile, vmsfile)
+vms2viirsanalysis(vmstoviirshp, viirsfile, vmsfile, bufferdistance)
 }
 \arguments{
 \item{viirsfile}{is a geospatial dataframe with viirs data obtained from https://eogdata.mines.edu/vbd/}
 
 \item{vmsfile}{is a geospatial dataframe with VMS data over a certain period of time obtained via KKP (the Fisheries Ministrie of Indonesia)}
+
+\item{bufferdistance}{is the maximum distance the VMS and VIIRS data are allowed to be apart}
 
 \item{vmstooviirshp}{is the output of the 'vms2viirs2shp' function.}
 }

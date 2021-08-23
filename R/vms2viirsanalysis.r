@@ -3,9 +3,10 @@
 #'@param vmstooviirshp is the output of the 'vms2viirs2shp' function.
 #'@param viirsfile is a geospatial dataframe with viirs data obtained from https://eogdata.mines.edu/vbd/
 #'@param vmsfile is a geospatial dataframe with VMS data over a certain period of time obtained via KKP (the Fisheries Ministrie of Indonesia)
+#'@param bufferdistance is the maximum distance the VMS and VIIRS data are allowed to be apart
 #'@return a geopsatial dataframe with all detected vessels through VIIRS satellite that could be connected to VMS vessel data.
 #'@export
-vms2viirsanalysis <- function(vmstoviirshp,viirsfile,vmsfile) {
+vms2viirsanalysis <- function(vmstoviirshp,viirsfile,vmsfile,bufferdistance) {
   dagen <- unique(vmstoviirshp$DAY)
   viirsfile$Date_Mscan <- as.POSIXct(viirsfile$Date_Mscan)
   viirsfile$day <- as.Date(viirsfile$Date_Mscan)
@@ -25,7 +26,7 @@ vms2viirsanalysis <- function(vmstoviirshp,viirsfile,vmsfile) {
       if (nrow(vmstoviirshperdaytransmitte)<1) {
         next
       }
-      bufferdistance <- 500 #knot2kph/2
+      #bufferdistance <- 500 #knot2kph/2
       buvver <- function(x,y) {
         requireNamespace("sp")
         buv1 <- x[,-(2:8)]
