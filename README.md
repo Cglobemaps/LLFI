@@ -1,11 +1,12 @@
 # LLFI
 R Package for VMS and VIIRS data combination and analysis
-This package was created specifically for VMS data that was provided by the Indonesian Ministery of Fisheries and Maritime Affairs (KKP), VIIRS data obtained from NOAA through VBD (https://eogdata.mines.edu/vbd/)
+This package was created at Bogor Agricultural Indonesia (IPB), specifically for VMS data that was provided by the Indonesian Ministery of Fisheries and Maritime Affairs (KKP), and VIIRS data obtained from NOAA through VBD (https://eogdata.mines.edu/vbd/)
 
 # Publications
 The following papers were published in scientific journals, based on data that was obtained through the usage of the LLFI package:
 -  Analysis of Fishing with Led Lights in and around MPA and No Take Zones at Natuna Indonesia through VMS and VIIRS Data (https://www.sciencegate.app/app/document/download/10.1109/agers51788.2020.9452785)
 - 
+
 
 # Usage
 
@@ -18,6 +19,7 @@ The following papers were published in scientific journals, based on data that w
 
 `library(LLFI)`
 `library(rgdal)`
+`library(raster)`
 
 
 The package is designed to handle VMS data that was provided by KKP and VIIRS data from NOAA VBD. Therefore the functions only recognize columns that are provided in the standard format.
@@ -52,7 +54,7 @@ When these are all specified, you can run the following:
 In this example `vmsfile` is the file holding the vms data and `VIIRS2018` is the file holding the VIIRS data. Both files should be added as a Shapefile.
 
 
-`cliplaag` is a file you must create yourself that exclused land and harbours in your Region of Interest. This can be used to get rid of false data`.
+`cliplaag` is a file you must create yourself that excludes land and harbours in your Region of Interest. This can be used to get rid of false data`.
 
 
 `cliplaag <- rgdal::readOGR("cliplaag.shp")`
